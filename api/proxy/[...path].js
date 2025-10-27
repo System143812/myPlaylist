@@ -32,18 +32,30 @@ export default async function handler(req, res) {
 
     const contentType = response.headers.get("Content-Type") || "";
 
-    if (contentType.includes("application/json")) {
+    if(contentType.includes("application/json")) {
       const data = await response.json();
       return res.json(data);
     }
 
-    if (contentType.startsWith("text/")) {
+    if(contentType.startsWith("text/")) {
       const data = await response.text();
       return res.send(data);
     }
-   
+    
+    if(contentType.startsWith("video/")){
+        res.status(response.status);
+        return response.body.pipe(res);
+    }
+
+    if(contentType.startsWith("audio/")){
+        const buffer = Buffer.from(await response.arrayBuffer());
+        res.status(response.status);
+        return res.send(buffer);
+    }
+
+    const buffer = Buffer.from(await response.arrayBuffer());
     res.status(response.status);
-    return response.body.pipe(res);
+    return res.send(buffer);
 
   } catch (error) {
     console.error("Proxy server error:", error);
