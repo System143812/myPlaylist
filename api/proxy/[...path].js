@@ -8,7 +8,7 @@ const BACKEND_URL = process.env.BACKEND_URL;
 
 export default async function handler(req, res) {
   try {
-    const { path } = req.query;
+    const path = req.url.replace("/api/proxy", "");
     return res.status(200).json({message: path});
     const urlPath = Array.isArray(path) ? path.join('/') : path;
     const backendUrl = `${BACKEND_URL}/${urlPath}`;
