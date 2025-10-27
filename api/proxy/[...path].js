@@ -9,8 +9,8 @@ const BACKEND_URL = process.env.BACKEND_URL;
 export default async function handler(req, res) {
   try {
     
-    const urlPath = req.url.replace("/api/proxy", "");
-    return res.status(200).json({path: req.url});
+    const urlPath = req.query["...path"];
+    return res.status(200).json({path: urlPath});
     const backendUrl = `${BACKEND_URL}${urlPath}`;
 
     const response = await fetch(backendUrl, {
