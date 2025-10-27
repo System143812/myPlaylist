@@ -1,4 +1,4 @@
-const API_BASE = "http://192.168.8.142:3007/api/proxy";
+const API_BASE = "https://gabbys-playlist.vercel.app/api/proxy";
 
 const player = document.getElementById("musicPlayer");
 const songTitle = document.getElementById("songCardTitle");
