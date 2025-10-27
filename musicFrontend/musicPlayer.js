@@ -179,14 +179,14 @@ hideIcon.addEventListener("click", () => {
     songCard.classList.toggle("hide");
 });
 
-prevButton.addEventListener('click', () => 
-    playPrevSong());
-randButton.addEventListener('click', () =>
-    playNextRandomSong());
-nextButton.addEventListener('click', () =>
-    playNextSong());
+prevButton.addEventListener('click', async() => 
+    await playPrevSong());
+randButton.addEventListener('click', async() =>
+    await playNextRandomSong());
+nextButton.addEventListener('click', async() =>
+    await playNextSong());
 
-startButton.addEventListener("click", () => {
+startButton.addEventListener("click", async() => {
    greetOverlayContainer.style.display = "none";
-   start(); 
+   await start(); 
 });
