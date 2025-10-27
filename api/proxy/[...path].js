@@ -8,9 +8,11 @@ const BACKEND_URL = process.env.BACKEND_URL;
 
 export default async function handler(req, res) {
   try {
-    const arrayPath = req.query.path;
-    const path = arrayPath.join("/");
-    return res.status(200).json({message: path});
+    const path = req.query.path.join("/");
+    const backendURl = `${BACKEND_URL}/${path}`;
+    res.writeHead(302, { Location: backendURl });
+    res.end();
+    return res.status(200).json({message: path}); 
     const urlPath = Array.isArray(path) ? path.join('/') : path;
     const backendUrl = `${BACKEND_URL}/${urlPath}`;
 
