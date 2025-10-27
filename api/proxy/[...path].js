@@ -42,9 +42,8 @@ export default async function handler(req, res) {
       return res.send(data);
     }
    
-    const buffer = Buffer.from(await response.arrayBuffer());
     res.status(response.status);
-    return res.send(buffer);
+    return response.body.pipe(res);
 
   } catch (error) {
     console.error("Proxy server error:", error);
