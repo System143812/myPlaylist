@@ -94,7 +94,7 @@ async function loadSongs() {
         loadingOverlay.classList.remove("show");
     }   
 }
-
+// minsan nagana to
 // async function playMedia(mediaName, action) {
 //     const res = await fetch(`${API_BASE}/${action}?file=${encodeURIComponent(mediaName)}`);
 //     const blob = await res.blob();
@@ -181,3 +181,4 @@ startButton.addEventListener("click", () => {
    greetOverlayContainer.style.display = "none";
    start(); 
 });
+
