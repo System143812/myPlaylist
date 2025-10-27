@@ -10,7 +10,7 @@ const PROXY_URL = process.env.PROXY_URL_VERCEL;
 export default async function handler(req, res) {
     try {
         const path = req.url.replace("/api/proxy", "");
-        const backendUrl = `${BACKEND_URL}/${path}`;
+        const backendUrl = BACKEND_URL + path;
         const response = await fetch(backendUrl, {
             method: req.method,
             headers: {
