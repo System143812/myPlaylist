@@ -155,21 +155,21 @@ async function playPrev() {
     randomizeSlider();
 }
 
-function playNextRandomSong() {
-    randomNext();
+async function playNextRandomSong() {
+    await randomNext();
 }
 
-function playNextSong() {
-    playNext();
+async function playNextSong() {
+    await playNext();
 }
 
-function playPrevSong() {
-    playPrev();
+async function playPrevSong() {
+    await playPrev();
 }
 
 async function start() {
     await loadSongs();
-    startingSong();
+    await startingSong();
 }
 
 player.addEventListener("ended", playNext);
