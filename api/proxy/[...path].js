@@ -10,7 +10,6 @@ export default async function handler(req, res) {
   try {
     
     const urlPath = req.query["...path"];
-    return res.status(200).json({path: urlPath});
     const backendUrl = `${BACKEND_URL}${urlPath}`;
 
     const response = await fetch(backendUrl, {
