@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     
     const fileName = req.query.file;
     const endPoint = req.query["...path"];
-    const urlPath = fileName ? `${endPoint}?=file${encodeURIComponent(req.query.file)}` : endPoint
+    const urlPath = fileName ? `${endPoint}?file=${encodeURIComponent(req.query.file)}` : endPoint
     const backendUrl = `${BACKEND_URL}/${urlPath}`;
 
     const response = await fetch(backendUrl, {
