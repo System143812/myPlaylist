@@ -27,7 +27,7 @@ export default async function handler(req, res) {
       res.setHeader(key, value);
     });
 
-    const contentType = response.headers.get("content-type") || "";
+    const contentType = response.headers.get("Content-Type") || "";
 
     if (contentType.includes("application/json")) {
       const data = await response.json();
