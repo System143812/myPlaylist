@@ -82,12 +82,7 @@ seekBar.addEventListener("input", () => {
 async function loadSongs() {
     loadingOverlay.classList.add("show");
     try {
-        const res = await fetch(`${API_BASE}/songs`, {
-            method: "GET",
-            headers: {
-                "Content-Type":"application/json"
-            },
-        });
+        const res = await fetch(`${API_BASE}/songs`);
         const data = await res.json();
         for (const element of data) {
             songs.push(element);
