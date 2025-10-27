@@ -1,4 +1,4 @@
-const API_BASE = "/api/proxy";
+const API_BASE = "/api/proxy?path=";
 
 const player = document.getElementById("musicPlayer");
 const songTitle = document.getElementById("songCardTitle");
@@ -79,7 +79,7 @@ seekBar.addEventListener("input", () => {
 async function loadSongs() {
     loadingOverlay.classList.add("show");
     try {
-        const res = await fetch(`${API_BASE}/songs`, {
+        const res = await fetch(`${API_BASE}songs`, {
             method: "GET",
             headers: {
                 "Content-Type":"application/json"
