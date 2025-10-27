@@ -37,7 +37,8 @@ export default async function handler(req, res) {
         }
 
         try {
-            response.body.pipe(res);
+            const buffer = Buffer.from(await response.arrayBuffer());
+            return res.status(response.status).send(buffer);
         } catch (error) {
             return res.status(500).json({error: `Error loading error: ${error}`});
         }
