@@ -8,8 +8,12 @@ const BACKEND_URL = process.env.BACKEND_URL;
 
 export default async function handler(req, res) {
   try {
-    const path = req.query.path.join("/");
-    const backendURl = `${BACKEND_URL}/${path}`;
+    const pathArray = req.query["...path"]; // this is an array of all path segments
+    if (!pathArray) return res.status(400).json({ error: "Missing path" });
+
+    const backendURl = `${BACKEND_URL}/${pathArray.join("/")}`;
+
+    // Redirect directly to backend for large files
     res.writeHead(302, { Location: backendURl });
     res.end();
     return res.status(200).json({message: path}); 
