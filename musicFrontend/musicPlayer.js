@@ -110,44 +110,44 @@ async function playMedia(mediaName, action) {
     return url;
 }
 
-function startingSong() {
+async function startingSong() {
     currentSong = Math.floor(Math.random() * (max - min + 1)) + min;
-    player.src = playMedia(songs[currentSong], 'listen');
+    player.src = await playMedia(songs[currentSong], 'listen');
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
     randomizeSlider();
 }
 
-function randomNext() {
+async function randomNext() {
     currentSong = Math.floor(Math.random() * (max - min + 1)) + min;
-    player.src = playMedia(songs[currentSong], 'listen');
+    player.src = await playMedia(songs[currentSong], 'listen');
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
     randomizeSlider();
 }
 
-function playNext() {
+async function playNext() {
     if(currentSong < max){
         currentSong = currentSong + 1;
     } else {
         currentSong = min;
     }
-    player.src = playMedia(songs[currentSong], 'listen');
+    player.src = await playMedia(songs[currentSong], 'listen');
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
     randomizeSlider();
 }
 
-function playPrev() {
+async function playPrev() {
     if(currentSong > min){
         currentSong = currentSong - 1;
     } else {
         currentSong = max;
     }
-    player.src = playMedia(songs[currentSong], 'listen');
+    player.src = await playMedia(songs[currentSong], 'listen');
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
