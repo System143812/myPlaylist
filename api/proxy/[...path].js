@@ -18,7 +18,9 @@ export default async function handler(req, res) {
       method: req.method,
       headers: {
         "x-proxy-key": PROXY_KEY,
-        ...(req.headers.authorization && { "authorization": req.headers.authorization })
+        ...(req.headers.authorization && { "authorization": req.headers.authorization }),
+        ...(req.headers.get("Content-Type") && {"Content-Type": req.headers.get("Content-Type")})
+  
       },
       body: req.body ? JSON.stringify(req.body) : undefined
     });
