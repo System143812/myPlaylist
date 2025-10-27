@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
     const headers = {
         ...req.headers,
-        "x-proxy-key": PROXY_KEY,
+        "x-proxy-key": PROXY_KEY
     }
 
     const response = await fetch(backendUrl, {
