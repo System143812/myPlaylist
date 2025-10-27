@@ -15,10 +15,10 @@ export default async function handler(req, res) {
     const backendUrl = `${BACKEND_URL}/${urlPath}`;
 
     const headers = {
-        ...req.headers,
-        "x-proxy-key": PROXY_KEY
-    }
-    delete forwardHeaders.host;
+        "x-proxy-key": PROXY_KEY,
+        ...(req.headers.authorization && { authorization: req.headers.authorization }),
+        ...(req.headers["content-type"] && { "content-type": req.headers["content-type"] })
+    };
 
     const response = await fetch(backendUrl, {
       method: req.method,
