@@ -1,51 +1,66 @@
 import fetch from 'node-fetch';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
 dotenv.config();
 
 const PROXY_KEY = process.env.PROXY_KEY;
 const BACKEND_URL = process.env.BACKEND_URL;
-const PROXY_URL = process.env.PROXY_URL_VERCEL;
 
 export default async function handler(req, res) {
-    try {
-        const path = req.url.replace("/api/proxy", "");
-        const backendUrl = BACKEND_URL + path;
-        const response = await fetch(backendUrl, {
-            method: req.method,
-            headers: {
-                "Content-Type":"application/json",
-                "x-proxy-key": PROXY_KEY,
-                ...(req.headers.Authorization && {"Authorization": req.headers.Authorization})
-            },
-            body: req.method !== "GET" ? JSON.stringify(req.body) : undefined
-        });
-        response.headers.forEach((value, key) => {
-            res.setHeader(key, value);
-            console.log(key, value);
-        });
-        //check if yung header is json or kung anong file type man
-        const contentType =  response.headers.get("content-type");
-        if(contentType && contentType.includes("application/json")){
-            const data = await response.json();
-            return res.status(response.status).json(data);
-        }
+  try {
+    const path = req.url.replace("/api/test", "");
+    const backendUrl = BACKEND_URL + path;
 
-        if(contentType.startsWith('text/')){
-            const data = await response.text();
-            return res.status(response.status).send(data);
-        }
+    console.log("========== 🌐 INCOMING REQUEST ==========");
+    console.log("➡️  Method:", req.method);
+    console.log("➡️  Request URL:", req.url);
+    console.log("➡️  Backend Target:", backendUrl);
+    console.log("=========================================");
 
-        try {
-            const buffer = Buffer.from(await response.arrayBuffer());
-            return res.status(response.status).send(buffer);
-        } catch (error) {
-            return res.status(500).json({error: `Error loading error: ${error}`});
-        }
+    const response = await fetch(backendUrl, {
+      method: req.method,
+      headers: {
+        "x-proxy-key": PROXY_KEY,
+        ...(req.headers.authorization && { "authorization": req.headers.authorization })
+      },
+      body: req.method !== "GET" ? JSON.stringify(req.body) : undefined
+    });
 
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({error: "Proxy server error", details: error.message});
+    console.log("✅ Backend response status:", response.status);
+    console.log("📦 Content-Type:", response.headers.get("content-type"));
+
+    // Copy headers
+    response.headers.forEach((value, key) => {
+      res.setHeader(key, value);
+    });
+
+    const contentType = response.headers.get("content-type") || "";
+
+    // Handle JSON
+    if (contentType.includes("application/json")) {
+      const data = await response.json();
+      console.log("🧩 JSON Response detected.");
+      return res.status(response.status).json(data);
     }
-}
 
+    // Handle text (HTML, plain text, etc.)
+    if (contentType.startsWith("text/")) {
+      const data = await response.text();
+      console.log("📝 Text Response detected.");
+      return res.status(response.status).send(data);
+    }
+
+    // Handle binary (audio, video, etc.)
+    console.log("🎵 Binary/Stream Response detected.");
+    const buffer = Buffer.from(await response.arrayBuffer());
+    res.status(response.status);
+    return res.send(buffer);
+
+  } catch (error) {
+    console.error("❌ Proxy server error:", error);
+    res.status(500).json({
+      error: "Proxy server error",
+      details: error.message
+    });
+  }
+}
