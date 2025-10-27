@@ -9,6 +9,19 @@ const PROXY_URL = process.env.PROXY_URL_VERCEL;
 
 export default async function handler(req, res) {
     try {
+        console.log("Query object:", req.query);
+
+        // Handle path safely
+        const segments = req.query.path;
+        if (!segments) {
+            return res.status(400).json({ error: "No path provided." });
+        }
+
+        const path1 = Array.isArray(segments) ? segments.join("/") : segments;
+        console.log("Resolved path:", path);
+
+        console.log("Using backend:", BACKEND_URL);
+
         const path = req.query.path.join("/");
         const backendUrl = `${BACKEND_URL}/${path}`;
         const response = await fetch(backendUrl, {
