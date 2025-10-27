@@ -95,20 +95,16 @@ async function loadSongs() {
     }   
 }
 
-// async function playMedia(mediaName, action) {
-//     const res = await fetch(`${API_BASE}/${action}`, {
-//         method: "GET",
-//         headers: { "Content-Type": "application/json" },
-//         body: req.method !== "GET" ? JSON.stringify({"mediaName": mediaName}) : undefined
-//     });
-//     const blob = await res.blob();
-//     const url = URL.createObjectURL(blob);
-//     return url;
-// }
+async function playMedia(mediaName, action) {
+    const res = await fetch(`${API_BASE}/${action}?file=${encodeURIComponent(mediaName)}`);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    return url;
+}
 
 function startingSong() {
     currentSong = Math.floor(Math.random() * (max - min + 1)) + min;
-    player.src = `${API_BASE}/listen?file=${encodeURIComponent(songs[currentSong])}`;
+    player.src = playMedia(songs[currentSong], 'listen');
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
@@ -117,7 +113,7 @@ function startingSong() {
 
 function randomNext() {
     currentSong = Math.floor(Math.random() * (max - min + 1)) + min;
-    player.src = `${API_BASE}/listen?file=${encodeURIComponent(songs[currentSong])}`;
+    player.src = playMedia(songs[currentSong], 'listen');
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
@@ -130,7 +126,7 @@ function playNext() {
     } else {
         currentSong = min;
     }
-    player.src = `${API_BASE}/listen?file=${encodeURIComponent(songs[currentSong])}`;
+    player.src = playMedia(songs[currentSong], 'listen');
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
@@ -143,7 +139,7 @@ function playPrev() {
     } else {
         currentSong = max;
     }
-    player.src = `${API_BASE}/listen?file=${encodeURIComponent(songs[currentSong])}`;
+    player.src = playMedia(songs[currentSong], 'listen');
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
