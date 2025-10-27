@@ -8,7 +8,7 @@ const BACKEND_URL = process.env.BACKEND_URL;
 
 export default async function handler(req, res) {
   try {
-    const { path } = req.query;
+    const path = req.query.path;
     const backendUrl = `${BACKEND_URL}/${path}`;
 
     console.log("========== 🌐 INCOMING REQUEST ==========");
