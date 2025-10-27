@@ -1,4 +1,4 @@
-const API_BASE = "../api/proxy";
+const API_BASE = "/api/proxy";
 
 const player = document.getElementById("musicPlayer");
 const songTitle = document.getElementById("songCardTitle");

@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv'
-import handler from './proxy.js';
+import handler from './proxy/proxy.js';
 
 dotenv.config();
 const PORT = process.env.PORT;
