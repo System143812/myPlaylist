@@ -104,7 +104,7 @@ async function loadSongs() {
 
 function startingSong() {
     currentSong = Math.floor(Math.random() * (max - min + 1)) + min;
-    player.src = `${API_BASE}/${action}?file=${encodeURIComponent(songs[currentSong])}`;
+    player.src = `${API_BASE}/listen?file=${encodeURIComponent(songs[currentSong])}`;
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
@@ -113,7 +113,7 @@ function startingSong() {
 
 function randomNext() {
     currentSong = Math.floor(Math.random() * (max - min + 1)) + min;
-    player.src = `${API_BASE}/${action}?file=${encodeURIComponent(songs[currentSong])}`;
+    player.src = `${API_BASE}/listen?file=${encodeURIComponent(songs[currentSong])}`;
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
@@ -126,7 +126,7 @@ function playNext() {
     } else {
         currentSong = min;
     }
-    player.src = `${API_BASE}/${action}?file=${encodeURIComponent(songs[currentSong])}`;
+    player.src = `${API_BASE}/listen?file=${encodeURIComponent(songs[currentSong])}`;
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
@@ -139,7 +139,7 @@ function playPrev() {
     } else {
         currentSong = max;
     }
-    player.src = `${API_BASE}/${action}?file=${encodeURIComponent(songs[currentSong])}`;
+    player.src = `${API_BASE}/listen?file=${encodeURIComponent(songs[currentSong])}`;
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
