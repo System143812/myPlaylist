@@ -100,76 +100,76 @@ async function loadSongs() {
     }   
 }
 
-async function playMedia(mediaName, action) {
-    const res = await fetch(`${API_BASE}/${action}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({"mediaName": mediaName})
-    });
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    return url;
-}
+// async function playMedia(mediaName, action) {
+//     const res = await fetch(`${API_BASE}/${action}`, {
+//         method: "GET",
+//         headers: { "Content-Type": "application/json" },
+//         body: req.method !== "GET" ? JSON.stringify({"mediaName": mediaName}) : undefined
+//     });
+//     const blob = await res.blob();
+//     const url = URL.createObjectURL(blob);
+//     return url;
+// }
 
-async function startingSong() {
+function startingSong() {
     currentSong = Math.floor(Math.random() * (max - min + 1)) + min;
-    player.src = await playMedia(songs[currentSong], 'listen');
+    player.src = `${API_BASE}/listen?file=${encodeURIComponent(songs[currentSong])}`;
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
     randomizeSlider();
 }
 
-async function randomNext() {
+function randomNext() {
     currentSong = Math.floor(Math.random() * (max - min + 1)) + min;
-    player.src = await playMedia(songs[currentSong], 'listen');
+    player.src = `${API_BASE}/listen?file=${encodeURIComponent(songs[currentSong])}`;
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
     randomizeSlider();
 }
 
-async function playNext() {
+function playNext() {
     if(currentSong < max){
         currentSong = currentSong + 1;
     } else {
         currentSong = min;
     }
-    player.src = await playMedia(songs[currentSong], 'listen');
+    player.src = `${API_BASE}/listen?file=${encodeURIComponent(songs[currentSong])}`;
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
     randomizeSlider();
 }
 
-async function playPrev() {
+function playPrev() {
     if(currentSong > min){
         currentSong = currentSong - 1;
     } else {
         currentSong = max;
     }
-    player.src = await playMedia(songs[currentSong], 'listen');
+    player.src = `${API_BASE}/listen?file=${encodeURIComponent(songs[currentSong])}`;
     songTitle.innerText = songs[currentSong];
     player.play();
     pauseButton.classList.add("play");
     randomizeSlider();
 }
 
-async function playNextRandomSong() {
-    await randomNext();
+function playNextRandomSong() {
+    randomNext();
 }
 
-async function playNextSong() {
-    await playNext();
+function playNextSong() {
+    playNext();
 }
 
-async function playPrevSong() {
-    await playPrev();
+function playPrevSong() {
+    playPrev();
 }
 
 async function start() {
     await loadSongs();
-    await startingSong();
+    startingSong();
 }
 
 player.addEventListener("ended", playNext);
@@ -179,14 +179,14 @@ hideIcon.addEventListener("click", () => {
     songCard.classList.toggle("hide");
 });
 
-prevButton.addEventListener('click', async() => 
-    await playPrevSong());
-randButton.addEventListener('click', async() =>
-    await playNextRandomSong());
-nextButton.addEventListener('click', async() =>
-    await playNextSong());
+prevButton.addEventListener('click', () => 
+    playPrevSong());
+randButton.addEventListener('click', () =>
+    playNextRandomSong());
+nextButton.addEventListener('click', () =>
+    playNextSong());
 
-startButton.addEventListener("click", async() => {
+startButton.addEventListener("click", () => {
    greetOverlayContainer.style.display = "none";
-   await start(); 
+   start(); 
 });
