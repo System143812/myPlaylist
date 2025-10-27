@@ -33,12 +33,12 @@ export default async function handler(req, res) {
 
     if (contentType.includes("application/json")) {
       const data = await response.json();
-      return res.status(response.status).json(data);
+      return res.json(data);
     }
 
     if (contentType.startsWith("text/")) {
       const data = await response.text();
-      return res.status(response.status).send(data);
+      return res.send(data);
     }
    
     const buffer = Buffer.from(await response.arrayBuffer());
