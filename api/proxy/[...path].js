@@ -14,14 +14,14 @@ export default async function handler(req, res) {
     const urlPath = fileName ? `${endPoint}?file=${encodeURIComponent(req.query.file)}` : endPoint
     const backendUrl = `${BACKEND_URL}/${urlPath}`;
 
+    const headers = {
+        ...req.headers,
+        "x-proxy-key": PROXY_KEY,
+    }
+
     const response = await fetch(backendUrl, {
       method: req.method,
-      headers: {
-        "x-proxy-key": PROXY_KEY,
-        ...(req.headers.authorization && { "authorization": req.headers.authorization })
-        // ...(req.headers.get("Content-Type") && {"Content-Type": req.headers.get("Content-Type")})
-  
-      },
+      headers: headers,
       body: req.body ? JSON.stringify(req.body) : undefined
     });
 
