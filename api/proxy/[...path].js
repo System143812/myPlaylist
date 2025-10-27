@@ -18,6 +18,7 @@ export default async function handler(req, res) {
         ...req.headers,
         "x-proxy-key": PROXY_KEY
     }
+    delete forwardHeaders.host;
 
     const response = await fetch(backendUrl, {
       method: req.method,
