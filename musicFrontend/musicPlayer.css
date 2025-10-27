@@ -92,6 +92,7 @@ body {
     flex-direction: column;
     padding: 1rem;
     color: #fafafa;
+    border: solid #333333 0.01px;
     background-color: #1e1e1e;
     border-radius: 3px;
 }
