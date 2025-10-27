@@ -1,0 +1,358 @@
+:root {
+    --thumb-image: url('./assets/icons/fire.gif');
+    --progress-color: rgba(204, 204, 204, 0.75);
+    --progress-bar-color: rgba(30, 30, 30, 0);
+    --progress-percent: 0%;
+}
+
+
+@font-face {
+    font-family: 'Inter';
+    src: url("./assets/fonts/Inter_18pt-Regular.ttf") format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url("./assets/fonts/Inter_18pt-Bold.ttf") format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url("./assets/fonts/Inter_18pt-SemiBold.ttf") format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 400;
+}
+
+.icons {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+}
+
+body {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(30, 30, 30, 1);
+    height: 100vh;
+    max-height: 100vh;
+    width: 100%;
+}
+
+#loadingOverlay {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30, 30, 30, 0.75);
+    background-image: url("./assets/icons/loading3.gif");
+    background-size: 45px 45px;
+    transition: all 0.15s ease;
+}
+
+#loadingOverlay.show {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+#greetingOverlayContainer {
+    display: flex;
+    position: absolute;
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(30, 30, 30, 0.75);
+    backdrop-filter: blur(3px);
+}
+
+#greetingOverlay {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    color: #fafafa;
+    background-color: #1e1e1e;
+    border-radius: 3px;
+}
+
+#greetingHeaderContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    word-wrap: break-word;
+    padding: 1rem;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+#greetingHeader {
+    font-weight: 500;
+}
+
+#greetingSubheader {
+    font-size: small;
+}
+
+#greetingBodyContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+#startButton {
+    display: flex;
+    word-spacing: nowrap;
+    color: #1e1e1e;
+    padding: 1rem 3rem;
+    width: auto;
+    background-color: rgb(240, 240, 7);
+    border: solid rgb(240, 240, 7 ) 1px;
+    border-radius: 3px;
+    transition: all 0.3s ease; 
+}
+
+#startButton:hover {
+    background-color: #1e1e1e;
+    color: rgb(240, 240, 7);
+}
+
+#startButton:active {
+    opacity: 0.25;
+}
+
+#hideIcon {
+    display: flex;
+    position: absolute;
+    cursor: pointer;
+    opacity: 0.6;
+    bottom: 1rem;
+    height: 20px;
+    width: 20px;
+    background-image: url("./assets/icons/show-white.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: all 0.15s ease;
+}
+
+#hideIcon.hide {
+    background-image: url("./assets/icons/hide-white.png");
+}
+
+#hideIcon:hover {
+    opacity: 1;
+}
+
+#bgVideo {
+    display: flex;
+    top: 0;
+    left: 0;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    object-fit: cover;
+    opacity: 1;
+    z-index: -1;
+}
+
+#songCardContainer {
+    display: flex;
+    opacity: 0.4;
+    pointer-events: auto;
+    flex-direction: column;
+    max-width: 80%;
+    word-wrap: break-word;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    background-color: rgba(15, 15, 15, 0.4);
+    backdrop-filter: blur(5px);
+    border: solid #aaaaaa 0.1px;
+    border-radius: 3px;
+    transition: all 0.5s ease;
+}
+
+#songCardContainer:hover {
+    opacity: 1;
+}
+
+#songCardContainer.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#songCardTitle {
+    display: flex;
+    color: #FDFDFD;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    flex: 1;
+}
+
+#songBar {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+}
+
+#pauseButton {
+    display: flex;
+    height: 15px;
+    width: 15px;
+    border: none;
+    background-image: url("./assets/icons/pause-white.png");
+    background-color: rgba(253, 253, 253, 0);
+    transition: all 0.3s ease;
+}
+
+#pauseButton:hover {
+    opacity: 0.6;
+}
+
+#pauseButton.play {
+    background-image: url("./assets/icons/play-white.png");
+}
+
+#seekBar {
+    display: flex;
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(
+        to right,
+        var(--progress-color) 0%,
+        var(--progress-color) var(--progress-percent),
+        var(--progress-bar-color) var(--progress-percent),
+        var(--progress-bar-color) 100%
+    );
+    border: solid var(--progress-color) 0.1px;
+    border-radius: 10px;
+    flex: 1;
+    height: 3px;
+}
+
+#seekBar::-webkit-slider-thumb {
+    display: flex;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    background-image: var(--thumb-image);
+    background-size: cover;
+    background-color: rgba(15, 15, 15, 0);
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+    transition: all 0.15s ease;
+}
+
+#seekBar::-webkit-slider-thumb:hover {
+    width: 35px;
+    height: 35px;
+}
+
+#seekBar::-webkit-slider-thumb:active {
+    width: 35px;
+    height: 35px;
+    opacity: 0.8;
+}
+
+#timeDisplay {
+    display: flex;
+    font-size: small;
+    color: #fdfdfd;
+    white-space: nowrap;
+    width: auto;
+}
+
+#songCardButtons {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+}
+
+#musicPlayer {
+    display: flex;
+    width: 90%;
+}
+
+#prevIcon {
+    display: flex;
+    left: 1rem;
+    height: 25px;
+    width: 25px;
+    background-image: url("./assets/icons/next-white.png");
+    transform: rotate(180deg);
+}
+
+#randomIcon {
+    display: flex;
+    left: 1rem;
+    height: 25px;
+    width: 25px;
+    background-image: url("./assets/icons/dice-cube-white.png");
+
+}
+
+#nextIcon {
+    display: flex;
+    left: 1rem;
+    height: 25px;
+    width: 25px;
+    background-image: url("./assets/icons/next-white.png");
+
+}
+
+#randomButton, #prevButton, #nextButton {
+    display: flex;
+    position: relative;
+    color: #FDFDFD;
+    font-weight: bold;
+    font-size: small;
+    background-color: rgba(253, 253, 253, 0);
+    backdrop-filter: blur(100px);
+    border: solid #aaaaaa 1px;
+    border-radius: 3px;
+    padding: 1rem 2rem;
+    transition: all 0.15s ease;
+}
+
+#randomButton:hover, #prevButton:hover, #nextButton:hover {
+    opacity: 0.75;
+    color: #fdfdfd;
+    background-color: rgba(253, 253, 253, 0.1);
+    border: solid #cccccc 1px;
+}
+
+#randomButton:active, #prevButton:active, #nextButton:active {
+    opacity: 0.5;
+    color: #fdfdfd;
+    background-color: rgba(253, 253, 253, 0.1);
+    border: solid #aaaaaa 1px;
+}

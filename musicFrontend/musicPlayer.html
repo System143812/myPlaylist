@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist ni Gabby</title>
+    <link rel="stylesheet" href="musicPlayer.css">
+    <link rel="icon" href="./assets/icons/favicon.png">
+</head>
+<body>
+    <div id="loadingOverlay" class="icons"></div>
+    <div id="greetingOverlayContainer">
+        <div id="greetingOverlay">
+            <div id="greetingHeaderContainer">
+                <h1 id="greetingHeader"></h1>
+                <p id="greetingSubheader"></p>
+            </div>
+            <div id="greetingBodyContainer">
+                <button type="button" id="startButton">Start Listening</button>
+            </div>
+        </div>
+    </div>
+    <div id="songCardContainer">
+        <h1 id="songCardTitle">
+            
+        </h1>
+        <div id="songBar">
+            <audio id="musicPlayer"></audio>
+            <button type="button" id="pauseButton" class="icons"></button>
+            <input type="range"  id="seekBar" min="0" max="100" step="1">
+            <span id="timeDisplay">0:00 / 0:00</span>
+        </div>
+        <div id="songCardButtons">
+            <button type="button" id="prevButton"><span id="prevIcon" class="icons"></span></button>
+            <button type="button" id="randomButton"><span id="randomIcon" class="icons"></span></button>
+            <button type="button" id="nextButton"><span id="nextIcon" class="icons"></span></button>
+        </div>
+    </div>
+    <div id="hideIcon" class="icons"></div>
+    <video autoplay muted loop playsinline id="bgVideo">
+        <source src="http://192.168.8.142:3007/api/proxy/music/bgVid/nature.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+</body>
+<script src="musicPlayer.js"></script>
+</html>
