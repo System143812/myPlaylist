@@ -103,6 +103,7 @@ async function loadSongs() {
 async function playMedia(mediaName, action) {
     const res = await fetch(`${API_BASE}/${action}`, {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({"mediaName": mediaName})
     });
     const blob = await res.blob();
