@@ -11,7 +11,6 @@ const startButton = document.getElementById("startButton");
 const greetOverlayContainer = document.getElementById("greetingOverlayContainer");
 const greetOverlay = document.getElementById("greetingOverlay");
 const loadingOverlay = document.getElementById("loadingOverlay");
-const bgVid = document.getElementById("bgVid");
 const pauseButton = document.getElementById("pauseButton");
 const seekBar = document.getElementById("seekBar");
 const timeDisplay = document.getElementById("timeDisplay");
@@ -32,8 +31,6 @@ player.addEventListener('loadstart', () => loadingOverlay.classList.add("show"))
 player.addEventListener('canplay', () => loadingOverlay.classList.remove("show"));
 player.addEventListener('waiting', () => loadingOverlay.classList.add("show"));
 player.addEventListener('playing', () => loadingOverlay.classList.remove("show"));
-
-bgVid.src = `${API_BASE}/view?file=nature.mp4`;
 
 function randomizeGreet() {
     const randHeader = Math.floor(Math.random() * greetingHeaders.length);
