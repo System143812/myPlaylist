@@ -33,7 +33,7 @@ player.addEventListener('canplay', () => loadingOverlay.classList.remove("show")
 player.addEventListener('waiting', () => loadingOverlay.classList.add("show"));
 player.addEventListener('playing', () => loadingOverlay.classList.remove("show"));
 
-// bgVid.src = `${API_BASE}/music/bgVid/nature.mp4`;
+bgVid.src = `${API_BASE}/view?file=nature.mp4`;
 
 function randomizeGreet() {
     const randHeader = Math.floor(Math.random() * greetingHeaders.length);
