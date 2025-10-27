@@ -1,4 +1,4 @@
-const API_BASE = "/api/proxy?path=";
+const API_BASE = "/api/proxy";
 
 const player = document.getElementById("musicPlayer");
 const songTitle = document.getElementById("songCardTitle");
@@ -11,6 +11,7 @@ const startButton = document.getElementById("startButton");
 const greetOverlayContainer = document.getElementById("greetingOverlayContainer");
 const greetOverlay = document.getElementById("greetingOverlay");
 const loadingOverlay = document.getElementById("loadingOverlay");
+const bgVid = document.getElementById("bgVid");
 const pauseButton = document.getElementById("pauseButton");
 const seekBar = document.getElementById("seekBar");
 const timeDisplay = document.getElementById("timeDisplay");
@@ -31,6 +32,8 @@ player.addEventListener('loadstart', () => loadingOverlay.classList.add("show"))
 player.addEventListener('canplay', () => loadingOverlay.classList.remove("show"));
 player.addEventListener('waiting', () => loadingOverlay.classList.add("show"));
 player.addEventListener('playing', () => loadingOverlay.classList.remove("show"));
+
+bgVid.src = `${API_BASE}/music/bgVid/nature.mp4`;
 
 function randomizeGreet() {
     const randHeader = Math.floor(Math.random() * greetingHeaders.length);
@@ -79,7 +82,7 @@ seekBar.addEventListener("input", () => {
 async function loadSongs() {
     loadingOverlay.classList.add("show");
     try {
-        const res = await fetch(`${API_BASE}songs`, {
+        const res = await fetch(`${API_BASE}/songs`, {
             method: "GET",
             headers: {
                 "Content-Type":"application/json"

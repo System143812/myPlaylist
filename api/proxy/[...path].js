@@ -8,8 +8,9 @@ const BACKEND_URL = process.env.BACKEND_URL;
 
 export default async function handler(req, res) {
   try {
-    const path = req.query.path;
-    const backendUrl = `${BACKEND_URL}/${path}`;
+    const { path } = req.query;
+    const urlPath = Array.isArray(path) ? path.join('/') : path;
+    const backendUrl = `${BACKEND_URL}/${urlPath}`;
 
     console.log("========== 🌐 INCOMING REQUEST ==========");
     console.log("➡️  Method:", req.method);
