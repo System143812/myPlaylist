@@ -9,7 +9,9 @@ const BACKEND_URL = process.env.BACKEND_URL;
 export default async function handler(req, res) {
   try {
     
-    const urlPath = req.query["...path"];
+    const fileName = req.query.file;
+    const endPoint = req.query["...path"];
+    const urlPath = fileName ? `${endPoint}?=file${encodeURIComponent(req.query.file)}` : endPoint
     const backendUrl = `${BACKEND_URL}/${urlPath}`;
 
     const response = await fetch(backendUrl, {
