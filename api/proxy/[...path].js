@@ -48,9 +48,8 @@ export default async function handler(req, res) {
     }
 
     if(contentType.startsWith("audio/")){
-        const buffer = Buffer.from(await response.arrayBuffer());
         res.status(response.status);
-        return res.send(buffer);
+        return response.body.pipe(res);
     }
 
     const buffer = Buffer.from(await response.arrayBuffer());
